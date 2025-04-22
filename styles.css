@@ -555,14 +555,15 @@ h2::after {
     background: rgba(255, 255, 255, 0.97);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-soft);
-    animation: fadeInScale 0.5s ease-out forwards;
+    animation: fadeInScale 0.5s ease-out forwards; /* Keep entry animation */
     position: relative;
     overflow: hidden;
 }
 
-#welcome-section.exiting {
+/* Remove exiting animation as button controls exit now */
+/* #welcome-section.exiting {
     animation: fadeOut 0.3s ease-in forwards;
-}
+} */
 
 #welcome-section h2 {
     color: var(--primary);
@@ -642,10 +643,11 @@ h2::after {
     100% { opacity: 1; transform: scale(1); }
 }
 
-@keyframes fadeOut {
+/* Remove fadeOut keyframe as it's not used */
+/* @keyframes fadeOut {
     0% { opacity: 1; transform: scale(1); }
     100% { opacity: 0; transform: scale(0.98); }
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -754,7 +756,7 @@ h2::after {
 /* Respect reduced motion preferences */
 @media (prefers-reduced-motion: reduce) {
     #welcome-section,
-    #welcome-section.exiting,
+    /* #welcome-section.exiting, Remove exiting class reference */
     .btn::before,
     .container:hover,
     .brain-icon:hover,
