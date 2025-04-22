@@ -536,21 +536,77 @@ function postLoginNav() {
     // ========================================================================
     // (Keep showAdminDashboard, clearReports, exportAllToExcel, submitStudentInfo,
     // exportStudentInfoToCSV, clearStudentInfo logic as is - they use local data)
-     function showAdminDashboard() {
-         console.log('Showing admin dashboard.');
-         const adminSection = document.getElementById('admin-section');
-         const adminContent = document.getElementById('admin-content');
-         const studentInfoTableBody = document.querySelector('#student-info-table tbody');
-         if (!adminSection || !adminContent || !studentInfoTableBody) { showAlert('error', 'Error loading admin dashboard components.'); return; }
-         showAlert('warning', 'Critical: Data is stored locally. Export regularly.');
-         adminSection.classList.remove('hidden');
-         let resultsTable = document.getElementById('results-table');
-         if (!resultsTable) { adminContent.innerHTML = `<h3>Student Results</h3><table id="results-table"><thead><tr><th>Name</th><th>Grade</th><th>Date</th><th>Summary</th></tr></thead><tbody></tbody></table>`; resultsTable = document.getElementById('results-table'); }
-         const currentResultsTableBody = resultsTable.querySelector('tbody'); if (!currentResultsTableBody) return;
-         currentResultsTableBody.innerHTML = allResults.map(result => `<tr><td>${result.studentData?.['student-name'] || 'N/A'}</td><td>${result.studentData?.grade || 'N/A'}</td><td>${result.date || 'N/A'}</td><td>${result.summary || 'N/A'}</td></tr>`).join('');
-         studentInfoTableBody.innerHTML = allStudentInfo.map(info => `<tr><td>${info.studentName || 'N/A'}</td><td>${info.parentName || 'N/A'}</td><td>${info.mobile || 'N/A'}</td><td>${info.email || 'N/A'}</td><td>${info.school || 'N/A'}</td><td>${info.age || 'N/A'}</td><td>${info.board || 'N/A'}</td><td>${info.standard || 'N/A'}</td><td>${info.medium || 'N/A'}</td></tr>`).join('');
-         updateBrandingThroughout(); // Update branding for admin section too
+    // REPLACE the existing showAdminDashboard function with this one:
+function showAdminDashboard() {
+    console.log('Showing admin dashboard.');
+    const adminSection = document.getElementById('admin-section');
+    const resultsTableBody = document.querySelector('#results-table tbody');
+    const studentInfoTableBody = document.querySelector('#student-info-table tbody');
+    const backupAlertTop = document.getElementById('backup-alert-top');
+
+    if (adminSection && resultsTableBody && studentInfoTableBody && backupAlertTop) {
+        // Make the section visible FIRST
+        adminSection.classList.remove('hidden');
+        backupAlertTop.style.display = 'block'; // Make sure alert is visible
+
+        // --- Defer the content population using requestAnimationFrame ---
+        requestAnimationFrame(() => {
+            console.log('Populating admin dashboard inside requestAnimationFrame');
+            try { // Add try...catch for safety inside the deferred code
+                // Populate Results Table
+                resultsTableBody.innerHTML = ''; // Clear previous entries
+                if (allResults.length === 0) {
+                    resultsTableBody.innerHTML = '<tr><td colspan="4">No test results available.</td></tr>';
+                } else {
+                    [...allResults].reverse().forEach(result => {
+                        const row = resultsTableBody.insertRow();
+                        const studentInfoForResult = result.studentData || {};
+                        row.insertCell().textContent = studentInfoForResult['student-name'] || 'N/A';
+                        row.insertCell().textContent = studentInfoForResult.grade || 'N/A';
+                        row.insertCell().textContent = result.date || 'N/A';
+                        row.insertCell().textContent = result.summary || 'N/A';
+                    });
+                }
+
+                // Populate Student Info Table
+                studentInfoTableBody.innerHTML = ''; // Clear previous entries
+                if (allStudentInfo.length === 0) {
+                    studentInfoTableBody.innerHTML = '<tr><td colspan="9">No student information submitted via admin form.</td></tr>';
+                } else {
+                    [...allStudentInfo].reverse().forEach(info => {
+                        const row = studentInfoTableBody.insertRow();
+                        row.insertCell().textContent = info.studentName || 'N/A';
+                        row.insertCell().textContent = info.parentName || 'N/A';
+                        row.insertCell().textContent = info.mobile || 'N/A';
+                        row.insertCell().textContent = info.email || 'N/A';
+                        row.insertCell().textContent = info.school || 'N/A';
+                        row.insertCell().textContent = info.age || 'N/A';
+                        row.insertCell().textContent = info.board || 'N/A';
+                        row.insertCell().textContent = info.standard || 'N/A';
+                        row.insertCell().textContent = info.medium || 'N/A';
+                    });
+                }
+
+                const planContent = document.getElementById('plan-content');
+                if (planContent) planContent.classList.add('hidden'); // Hide generated plan initially
+
+                updateBrandingThroughout(); // Update branding only AFTER ensuring content is ready
+
+            } catch (error) {
+                 console.error("Error populating dashboard inside rAF:", error);
+                 showAlert('error', 'Failed to populate dashboard content.');
+                 resetUI(); // Still reset if population itself fails
+            }
+        });
+         // --- End deferral ---
+
+    } else {
+        // This 'else' block is the original problem - hopefully less likely now
+        showAlert('error', 'Error loading admin dashboard elements (Check Failed).');
+        console.error("Admin dashboard elements missing (Check Failed):", { adminSection, resultsTableBody, studentInfoTableBody, backupAlertTop });
+        resetUI(); // Go back to login if check fails
     }
+}
     function clearReports() { if (confirm('Clear all local reports? Export first.')) { if (confirm('FINAL CONFIRMATION: Clear reports?')) { allResults = []; saveResults(); showAdminDashboard(); showAlert('success', 'Local reports cleared.'); } } }
     function exportAllToExcel() { if (!allResults.length) { showAlert('error', 'No results.'); return; } let csv = 'Student Name,Grade,Date,Summary,Analysis,Realistic,Investigative,Artistic,Social,Enterprising,Conventional,Recommendations\n'; allResults.forEach(result => { const studentName = result.studentData?.['student-name'] || ''; const grade = result.studentData?.grade || ''; const date = result.date || ''; const summary = result.summary || ''; const analysis = result.result?.analysis?.replace(/,|"/g, ';') || ''; const recommendations = result.result?.recommendations?.map(r => `- ${r.replace(/,|"/g, ';')}`).join('\n') || ''; const scores = result.result?.scores; let scoreColumns = 'N/A,N/A,N/A,N/A,N/A,N/A'; if (parseInt(grade) > 8 && scores && typeof scores === 'object') { scoreColumns = [scores.realistic ?? 'N/A', scores.investigative ?? 'N/A', scores.artistic ?? 'N/A', scores.social ?? 'N/A', scores.enterprising ?? 'N/A', scores.conventional ?? 'N/A'].join(','); } const row = [studentName, grade, date, summary, analysis, scoreColumns, recommendations].map(field => `"${String(field).replace(/"/g, '""')}"`).join(','); csv += row + '\n'; }); const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const link = document.createElement('a'); link.href = URL.createObjectURL(blob); const timestamp = new Date().toISOString().replace(/[:.]/g, '-'); link.download = `Psychometrica_Results_${timestamp}.csv`; link.click(); URL.revokeObjectURL(link.href); showAlert('success', 'Results exported.'); }
     function submitStudentInfo() { const studentName = document.getElementById('info-student-name')?.value?.trim(); const parentName = document.getElementById('info-parent-name')?.value?.trim(); const mobile = document.getElementById('info-mobile')?.value?.trim(); const email = document.getElementById('info-email')?.value?.trim(); const school = document.getElementById('info-school')?.value?.trim(); const ageInput = document.getElementById('info-age'); const board = document.getElementById('info-board')?.value; const standard = document.getElementById('info-standard')?.value; const medium = document.getElementById('info-medium')?.value; if (!studentName || !parentName || !mobile || !email || !school || !ageInput?.value || !board || !standard || !medium) { showAlert('error', 'Fill all fields.'); return; } const age = parseInt(ageInput.value, 10); if (isNaN(age)) { showAlert('error', 'Valid age needed.'); return; } if (age < 5 || age > 25) { showAlert('error', 'Age 5-25 only.'); return; } if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showAlert('error', 'Valid email needed.'); return; } if (!/^\d{10}$/.test(mobile)) { showAlert('error', '10-digit mobile needed.'); return; } const studentInfo = { studentName, parentName, mobile, email, school, age, board, standard, medium, timestamp: new Date().toISOString() }; allStudentInfo.push(studentInfo); saveStudentInfo(); showAdminDashboard(); document.getElementById('info-student-name').value = ''; document.getElementById('info-parent-name').value = ''; document.getElementById('info-mobile').value = ''; document.getElementById('info-email').value = ''; document.getElementById('info-school').value = ''; document.getElementById('info-age').value = ''; document.getElementById('info-board').value = ''; document.getElementById('info-standard').value = ''; document.getElementById('info-medium').value = ''; showAlert('success', 'Student info submitted.'); }
