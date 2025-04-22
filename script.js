@@ -1161,7 +1161,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Admin Section Logic
     // ========================================================================
 
-    // --- REVISED: showAdminDashboard ---
+  // --- REVISED AGAIN: showAdminDashboard ---
+    // Use document.getElementById for backupAlertTop
     function showAdminDashboard() {
         console.log('>>> showAdminDashboard: Attempting to find adminSection first...');
 
@@ -1172,22 +1173,23 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('>>> adminSection found. Removing hidden class...');
             adminSection.classList.remove('hidden'); // Make it potentially visible
 
-            // Step 2: NOW try to find elements INSIDE the (hopefully) visible adminSection
+            // Step 2: NOW try to find elements INSIDE (using getElementById for backupAlertTop)
             console.log('>>> Finding inner elements AFTER unhiding adminSection...');
-            const resultsTableBody = adminSection.querySelector('#results-table tbody'); // Search within adminSection
-            const studentInfoTableBody = adminSection.querySelector('#student-info-table tbody'); // Search within adminSection
-            const backupAlertTop = adminSection.querySelector('#backup-alert-top'); // Search within adminSection
+            const resultsTableBody = adminSection.querySelector('#results-table tbody'); // Still search within adminSection
+            const studentInfoTableBody = adminSection.querySelector('#student-info-table tbody'); // Still search within adminSection
+            const backupAlertTop = document.getElementById('backup-alert-top'); // *** CHANGED: Search whole document ***
 
             console.log('>>> Inner Elements Found Check:', {
                  resultsTableBodyExists: !!resultsTableBody,
                  studentInfoTableBodyExists: !!studentInfoTableBody,
-                 backupAlertTopExists: !!backupAlertTop
+                 backupAlertTopExists: !!backupAlertTop // Check result of getElementById
             });
 
             // Step 3: Check if the INNER elements were found
             if (resultsTableBody && studentInfoTableBody && backupAlertTop) {
                 console.log('>>> All necessary admin elements found.');
-                backupAlertTop.style.display = 'block'; // Ensure alert is visible
+                // Make backup alert visible using its style property (as ID was used)
+                backupAlertTop.style.display = 'block';
 
                 // Step 4: Defer population using requestAnimationFrame
                 requestAnimationFrame(() => {
@@ -1243,10 +1245,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Error: Inner elements NOT found even after unhiding parent
                 showAlert('error', 'Error loading admin dashboard content (Inner Elements Missing).');
                 console.error("Admin dashboard INNER elements missing after unhide:", {
-                    resultsTableBody, studentInfoTableBody, backupAlertTop
+                    resultsTableBodyFound: !!resultsTableBody, // Log boolean status
+                    studentInfoTableBodyFound: !!studentInfoTableBody,
+                    backupAlertTopFound: !!backupAlertTop // Log boolean status from getElementById
                 });
-                 // Attempt to hide admin section again before reset? Optional.
-                 adminSection.classList.add('hidden');
+                 adminSection.classList.add('hidden'); // Hide section again on failure
                 resetUI();
             }
 
