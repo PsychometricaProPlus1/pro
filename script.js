@@ -245,14 +245,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof generateDevelopmentPlan !== 'undefined') {
         window.generateDevelopmentPlan = generateDevelopmentPlan;
     } else {
-        // Log warning if plan.js didn't load/assign correctly
-        console.warn("generateDevelopmentPlan not found globally after plan.js load!");
+        // This might log if plan.js hasn't run yet, but function should be available later
+        console.warn("generateDevelopmentPlan not found globally at this point in script.js execution!");
     }
     if (typeof copyPlan !== 'undefined') {
         window.copyPlan = copyPlan;
      } else {
-        // Log warning if plan.js didn't load/assign correctly
-        console.warn("copyPlan not found globally after plan.js load!");
+        // This might log if plan.js hasn't run yet
+        console.warn("copyPlan not found globally at this point in script.js execution!");
     }
 
 
