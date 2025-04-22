@@ -109,109 +109,73 @@ document.addEventListener('DOMContentLoaded', () => {
     function clearReports() { if(!allResults.length){showAlert('info','No results.');return;} if(confirm('Clear results? Export first.')){ if(confirm('CONFIRM: Delete results?')){allResults=[]; saveResults(); showAdminDashboard(); showAlert('success','Results cleared.');}}}
     function exportAllToExcel() { if(!allResults.length){showAlert('error','No results.');return;} let h=['Name','Parent','Mobile','Email','Age','Board','Grade','Lang','Date','Summ','Analysis']; const hasHG=allResults.some(r=>parseInt(r.standard)>=9); if(hasHG) h.push('R','I','A','S','E','C'); const hasLG=allResults.some(r=>parseInt(r.standard)<=8 && r.result?.scores?.percentage!==undefined); if(hasLG) h.push('Pct'); h.push('Recs'); let csv=h.join(',')+'\n'; allResults.forEach(r=>{ const s=r.studentData||{}; const re=r.result||{}; const sc=re.scores||{}; let rd=[s['student-name']||'',s['parent-name']||'',s['mobile']||'',s['email']||'',s['age']||'',s['board']||'',r.standard||'',r.language||'',r.date||'',r.summary||'',(re.analysis||'').replace(/[\r\n,"]/g,' ')]; if(hasHG){ if(parseInt(r.standard)>=9) rd.push(sc.realistic??'',sc.investigative??'',sc.artistic??'',sc.social??'',sc.enterprising??'',sc.conventional??''); else rd.push('','','','','',''); } if(hasLG){ if(parseInt(r.standard)<=8 && sc.percentage!==undefined) rd.push(sc.percentage??''); else rd.push(''); } rd.push((re.recommendations||[]).join('; ').replace(/[,"]/g,' ')); csv+=rd.map(f=>`"${String(f).replace(/"/g,'""')}"`).join(',')+'\n'; }); const b=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const l=document.createElement('a'); const u=URL.createObjectURL(b); l.setAttribute('href',u); const ts=new Date().toISOString().replace(/[:.]/g,'-'); l.setAttribute('download',`Results_${ts}.csv`); l.style.visibility='hidden'; document.body.appendChild(l); l.click(); document.body.removeChild(l); URL.revokeObjectURL(u); showAlert('success','Results exported.'); }
     function submitStudentInfo() { const sN=document.getElementById('info-student-name')?.value.trim(); const pN=document.getElementById('info-parent-name')?.value.trim(); const m=document.getElementById('info-mobile')?.value.trim(); const e=document.getElementById('info-email')?.value.trim(); const sch=document.getElementById('info-school')?.value.trim(); const aI=document.getElementById('info-age'); const b=document.getElementById('info-board')?.value; const st=document.getElementById('info-standard')?.value; const med=document.getElementById('info-medium')?.value; if(!sN||!pN||!m||!e||!sch||!aI?.value||!b||!st||!med) {showAlert('error','Fill fields.'); return;} const age=parseInt(aI.value,10); if(isNaN(age)||age<5||age>25) {showAlert('error','Valid age.'); return;} if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) {showAlert('error','Valid email.'); return;} if(!/^\d{10}$/.test(m)) {showAlert('error','Valid mobile.'); return;} const sI={studentName:sN,parentName:pN,mobile:m,email:e,school:sch,age,board:b,standard:st,medium:med,timestamp:new Date().toISOString()}; allStudentInfo.push(sI); saveStudentInfo(); showAdminDashboard(); document.getElementById('info-student-name').value=''; document.getElementById('info-parent-name').value=''; document.getElementById('info-mobile').value=''; document.getElementById('info-email').value=''; document.getElementById('info-school').value=''; document.getElementById('info-age').value=''; document.getElementById('info-board').value=''; document.getElementById('info-standard').value=''; document.getElementById('info-medium').value=''; showAlert('success','Info saved.'); }
-    function exportStudentInfoToCSV() { if(!allStudentInfo.length){showAlert('error','No info.');return;} let h=['Name','Parent','Mobile','Email','School','Age','Board','Std','Medium','Timestamp']; let csv=h.join(',')+'\n'; allStudentInfo.forEach(i=>{const r=[i.studentName,i.parentName,i.mobile,i.email,i.school,i.age,i.board,i.standard,i.medium,i.timestamp||'']; csv+=r.map(f=>`"${String(f).replace(/"/g,'""')}"`).join(',')+'\n';}); const b=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const l=document.createElement('a'); const u=URL.createObjectURL(b); l.setAttribute('href',u); const ts=new Date().toISOString().replace(/[:.]/g,'-'); l.setAttribute('download',`StudentInfo_${ts}.csv`); l.style.visibility='hidden'; document.body.appendChild(l); l.click(); document.body.removeChild(l); URL.revokeObjectURL(u); showAlert('success','Info exported.'); }
+    function exportStudentInfoToCSV() { if(!allStudentInfo.length){showAlert('error','No info.');return;} let h=['Name','Parent','Mobile','Email','School','Age','Board','Std','Medium','Timestamp']; let csv=h.join(',')+'\n'; allStudentInfo.forEach(i=>{const r=[i.studentName,i.parentName,i.mobile,i.email,i.school,i.age,i.board,i.standard,i.medium,i.timestamp||'']; csv+=r.map(f=>`"${String(f).replace(/"/g,'""')}"`).join(',')+'\n';}); const b=new Blob([csv],{type:'text/csv;charset=utf-8;'}); const l=document.createElement('a'); const u=URL.createObjectURL(b); l.setAttribute('href',u); const ts=new Date().toISOString().replace(/[:.]/g,'-'); l.setAttribute('download', `StudentInfo_${ts}.csv`); l.style.visibility='hidden'; document.body.appendChild(l); l.click(); document.body.removeChild(l); URL.revokeObjectURL(u); showAlert('success','Info exported.'); }
     function clearStudentInfo() { if(!allStudentInfo.length){showAlert('info','No info.');return;} if(confirm('Clear info? Export first.')){if(confirm('CONFIRM: Delete info?')){allStudentInfo=[]; saveStudentInfo(); showAdminDashboard(); showAlert('success','Info cleared.');}}}
 
-    // plan.js (Corrected - No extra brace at end)
+    // --- Plan Generation Functions (Moved from plan.js) ---
+    function generateDevelopmentPlan() {
+        const studentNameInput = document.getElementById('plan-student-name');
+        const ageInput = document.getElementById('plan-age');
+        const standardInput = document.getElementById('plan-standard');
+        const scoreInput = document.getElementById('plan-score');
 
-// Development Plan Templates (Bilingual: English | Marathi)
-const developmentPlans = {
-    '5-8': {
-        low: { text: `Plan (Grades 5-8, Low Score)\nStudent: {{studentName}}, Age: {{age}}, Std: {{standard}}\n\nObjective: Build basics.\n\nActivities:\n- Game: Chess (1hr/wk)\n- Book: Panchatantra (1 story/wk)\n- YouTube: Chhota Bheem (1 ep/wk)\n- Outdoor: Plant Tulsi\n- School: Drawing Club\n- Craft: Paper Boat\n- Paint: Flower\n- Exercise: Skip Rope (10min/day)\n\nParent Tips:\n- Study Time: 1.5hr/day\n- Read Together: Panchatantra\n- Help With: Diwali Diya\n- Discuss: Chhota Bheem values\n- Praise: Drawing efforts\n` },
-        medium: { text: `Plan (Grades 5-8, Medium Score)\nStudent: {{studentName}}, Age: {{age}}, Std: {{standard}}\n\nObjective: Strengthen skills.\n\nActivities:\n- Game: Kabaddi (1.5hr/wk)\n- Book: Tinkle (5 pages/wk)\n- YouTube: Vigyan Prasar (2 videos/month)\n- Outdoor: Plant Neem\n- School: Science Club\n- Craft: Diwali Diya (2)\n- Paint: Rangoli\n- Exercise: Surya Namaskar (8 rounds/day)\n\nParent Tips:\n- Study Time: 2hr/day\n- Read Together: Tinkle\n- Help With: Diwali Diyas\n- Discuss: Bharat Ek Khoj\n- Praise: Science projects\n` },
-        high: { text: `Plan (Grades 5-8, High Score)\nStudent: {{studentName}}, Age: {{age}}, Std: {{standard}}\n\nObjective: Enhance advanced skills.\n\nActivities:\n- Game: Kabaddi (2hr/wk)\n- Book: Art of Problem Solving (5 pages/wk)\n- YouTube: Khan Academy India (2 videos/wk)\n- Outdoor: Plant Fruit Tree\n- School: Robotics Club\n- Craft: Paper Lantern\n- Paint: Mandala (3)\n- Exercise: Badminton (1hr, 3x/wk)\n\nParent Tips:\n- Study Time: 2.5hr/day\n- Read Together: Problem Solving book\n- Help With: Diwali Lantern\n- Discuss: Khan Academy\n- Praise: Leadership (Robotics)\n` }
-    },
-    '9-10': {
-        low: { text: `Plan (Grades 9-10, Low Score)\nStudent: {{studentName}}, Age: {{age}}, Std: {{standard}}\n\nObjective: Build study habits & confidence.\n\nActivities:\n- Game: Carrom (1hr/wk)\n- Book: Ignited Minds (3 pages/day)\n- YouTube: Unacademy (1 video/wk)\n- Outdoor: Plant Neem\n- School: Study Group\n- Craft: Rakhi\n- Paint: Rangoli\n- Exercise: Skip Rope (15min/day)\n\nParent Tips:\n- Study Time: 2hr/day\n- Read Together: Ignited Minds\n- Help With: Rakhi\n- Discuss: Unacademy videos\n- Praise: Study group efforts\n` },
-        medium: { text: `Plan (Grades 9-10, Medium Score)\nStudent: {{studentName}}, Age: {{age}}, Std: {{standard}}\n\nObjective: Prepare for boards, explore careers.\n\nActivities:\n- Game: Cricket (2hr/wk)\n- Book: Wings of Fire (5 pages/day)\n- YouTube: Unacademy JEE Prep (2 videos/wk)\n- Outdoor: Tree Plantation Drive\n- School: Debate Team\n- Craft: Ganesh Idol\n- Paint: Freedom Fighter Portrait\n- Exercise: Yoga (15min/day)\n\nParent Tips:\n- Study Time: 3hr/day\n- Read Together: Wings of Fire\n- Help With: Ganesh Idol\n- Discuss: ISRO Lectures\n- Praise: Debate practice\n` },
-        high: { text: `Plan (Grades 9-10, High Score)\nStudent: {{studentName}}, Age: {{age}}, Std: {{standard}}\n\nObjective: Excel in boards, plan career.\n\nActivities:\n- Game: Chess (3hr/wk)\n- Book: India After Gandhi (10 pages/wk)\n- YouTube: ISRO Lectures (2 videos/month)\n- Outdoor: Lead Plantation Drive\n- School: Lead Debate Team\n- Craft: Tricolor Flag (2)\n- Paint: India Map (mark historical sites)\n- Exercise: Run (30min/day)\n\nParent Tips:\n- Study Time: 3.5hr/day\n- Read Together: Discovery of India\n- Help With: School Play Direction\n- Discuss: Khan Academy advanced topics\n- Praise: Leadership (Debate)\n` }
+        if (!studentNameInput || !ageInput || !standardInput || !scoreInput) {
+            console.error('Plan input elements missing');
+            showAlert('error', 'Form elements missing.'); return;
+        }
+
+        const studentName = studentNameInput.value.trim();
+        const age = parseInt(ageInput.value, 10);
+        const standard = parseInt(standardInput.value, 10);
+        const score = parseFloat(scoreInput.value);
+
+        console.log('Plan Inputs:', { studentName, age, standard, score });
+
+        if (!studentName || isNaN(age) || isNaN(standard) || !standardInput.value || isNaN(score)) {
+            showAlert('error', 'Fill all fields with valid values.'); return;
+        }
+        if (age < 10 || age > 18) { showAlert('error', 'Age must be 10-18.'); return; }
+        if (score < 0 || score > 100) { showAlert('error', 'Score must be 0-100.'); return; }
+
+        let branding = getClientBranding() || { name: 'Psychometrica', address: 'N/A', phone: 'N/A' };
+        const gradeGroup = standard <= 8 ? '5-8' : '9-10';
+        const scoreRange = score > 80 ? 'high' : score > 60 ? 'medium' : 'low';
+        // Use the 'developmentPlans' object defined earlier in this script
+        const planTemplate = developmentPlans[gradeGroup]?.[scoreRange]?.text;
+
+        if (!planTemplate) { showAlert('error', 'Plan template not found.'); return; }
+
+        const personalizedPlan = planTemplate
+            .replace(/{{studentName}}/g, studentName)
+            .replace(/{{age}}/g, age)
+            .replace(/{{standard}}/g, standard)
+            .replace(/{{branding\.name}}/g, branding.name)
+            .replace(/{{branding\.address}}/g, branding.address)
+            .replace(/{{branding\.phone}}/g, branding.phone);
+
+        const planSection = document.getElementById('development-plan-section');
+        const planTextElement = document.getElementById('plan-text');
+
+        if (!planSection || !planTextElement) { showAlert('error', 'Plan display elements missing.'); return; }
+
+        planTextElement.textContent = personalizedPlan;
+        planSection.classList.remove('hidden');
+        console.log('Plan displayed successfully.');
+        showAlert('success', 'Development plan generated.'); // Use global showAlert
     }
-};
 
-function generateDevelopmentPlan() {
-    // Retrieve inputs
-    const studentNameInput = document.getElementById('plan-student-name');
-    const ageInput = document.getElementById('plan-age');
-    const standardInput = document.getElementById('plan-standard');
-    const scoreInput = document.getElementById('plan-score');
-
-    // Check if inputs exist
-    if (!studentNameInput || !ageInput || !standardInput || !scoreInput) {
-        console.error('One or more input elements not found:', { studentNameInput, ageInput, standardInput, scoreInput });
-        // Use showAlert if available, otherwise console.error
-        if (typeof showAlert === 'function') showAlert('error', 'Form elements are missing.'); else console.error('Form elements are missing.');
-        return;
+    function copyPlan() {
+        const planText = document.getElementById('plan-text')?.textContent;
+        if (planText) {
+            navigator.clipboard.writeText(planText.trim()).then(
+                () => { showAlert('success', 'Plan copied.'); }, // Use global showAlert
+                () => { showAlert('error', 'Copy failed.'); } // Use global showAlert
+            );
+        } else {
+            showAlert('error', 'No plan to copy.'); // Use global showAlert
+        }
     }
 
-    const studentName = studentNameInput.value.trim();
-    const age = parseInt(ageInput.value, 10);
-    const standard = parseInt(standardInput.value, 10);
-    const score = parseFloat(scoreInput.value);
-
-    console.log('Inputs:', { studentName, age, standard, score });
-
-    // Validate inputs
-    if (!studentName || isNaN(age) || isNaN(standard) || !standardInput.value || isNaN(score)) {
-        console.log('Validation failed: Incomplete or invalid inputs');
-        if (typeof showAlert === 'function') showAlert('error', 'Please fill in all fields with valid values.'); else console.error('Please fill in all fields with valid values.');
-        return;
-    }
-    if (age < 10 || age > 18) { console.log('Validation failed: Invalid age'); if (typeof showAlert === 'function') showAlert('error', 'Age must be between 10 and 18.'); else console.error('Age must be between 10 and 18.'); return; }
-    if (score < 0 || score > 100) { console.log('Validation failed: Invalid score'); if (typeof showAlert === 'function') showAlert('error', 'Score must be between 0 and 100.'); else console.error('Score must be between 0 and 100.'); return; }
-
-    // Get branding (with fallback)
-    let branding;
-    try { branding = window.getClientBranding() || { name: 'Psychometrica Pro Plus', address: 'N/A', phone: 'N/A' }; console.log('Branding:', branding); }
-    catch (e) { console.error('Error getting branding:', e); branding = { name: 'Psychometrica Pro Plus', address: 'N/A', phone: 'N/A' }; }
-
-    // Select template
-    const gradeGroup = standard <= 8 ? '5-8' : '9-10';
-    const scoreRange = score > 80 ? 'high' : score > 60 ? 'medium' : 'low';
-    const planTemplate = developmentPlans[gradeGroup]?.[scoreRange]?.text;
-
-    if (!planTemplate) { console.error('Plan template not found for:', { gradeGroup, scoreRange }); if (typeof showAlert === 'function') showAlert('error', 'Unable to generate plan. Template not found.'); else console.error('Unable to generate plan. Template not found.'); return; }
-
-    // Generate personalized plan
-    const personalizedPlan = planTemplate
-        .replace(/{{studentName}}/g, studentName)
-        .replace(/{{age}}/g, age)
-        .replace(/{{standard}}/g, standard)
-        .replace(/{{branding\.name}}/g, branding.name)
-        .replace(/{{branding\.address}}/g, branding.address)
-        .replace(/{{branding\.phone}}/g, branding.phone);
-
-    // Display plan
-    const planSection = document.getElementById('development-plan-section');
-    const planTextElement = document.getElementById('plan-text');
-
-    if (!planSection || !planTextElement) { console.error('Plan display elements not found:', { planSection, planTextElement }); if (typeof showAlert === 'function') showAlert('error', 'Unable to display plan.'); else console.error('Unable to display plan.'); return; }
-
-    planTextElement.textContent = personalizedPlan;
-    planSection.classList.remove('hidden'); // Make the *outer section* visible
-    console.log('Plan displayed successfully');
-
-    if (typeof showAlert === 'function') showAlert('success', 'Development plan generated successfully.'); else console.log('Development plan generated successfully.');
-}
-
-function copyPlan() {
-    const planText = document.getElementById('plan-text')?.textContent;
-    if (planText) {
-        navigator.clipboard.writeText(planText.trim()).then(() => {
-            if (typeof showAlert === 'function') showAlert('success', 'Plan copied.'); else console.log('Plan copied.');
-        }).catch(() => {
-            if (typeof showAlert === 'function') showAlert('error', 'Copy failed.'); else console.error('Copy failed.');
-        });
-    } else {
-        if (typeof showAlert === 'function') showAlert('error', 'No plan to copy.'); else console.error('No plan to copy.');
-    }
-}
-
-// Expose functions to window
-console.log("plan.js: Assigning functions to window...");
-window.generateDevelopmentPlan = generateDevelopmentPlan;
-window.copyPlan = copyPlan;
-console.log("plan.js: Functions assigned.");
-// NO EXTRA BRACE AT THE END OF THIS FILE
 
     // ========================================================================
     // Initialization
@@ -240,9 +204,9 @@ console.log("plan.js: Functions assigned.");
     window.submitStudentInfo = submitStudentInfo;
     window.exportStudentInfoToCSV = exportStudentInfoToCSV;
     window.clearStudentInfo = clearStudentInfo;
-    window.getClientBranding = getClientBranding;
+    window.getClientBranding = getClientBranding; // Potentially used by plan.js
 
-    // Assign merged plan functions
+    // Assign merged plan functions (defined above within this scope)
     window.generateDevelopmentPlan = generateDevelopmentPlan;
     window.copyPlan = copyPlan;
 
