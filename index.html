@@ -99,7 +99,8 @@
                 <div class="button-group"> <button onclick="exportAllToExcel()"><i class="fas fa-file-excel"></i> Export Results to CSV</button> <button class="danger-button" onclick="clearReports()"><i class="fas fa-trash-alt"></i> Clear Test Results (Local)</button> </div>
             </div>
 
-             <div class="admin-subsection admin-form"> <h3><i class="fas fa-tasks"></i> Generate Student Development Plan</h3>
+             <div class="admin-subsection admin-form">
+                <h3><i class="fas fa-tasks"></i> Generate Student Development Plan</h3>
                  <div class="form-group">
                      <label for="plan-student-name">Student's Name:</label>
                      <input type="text" id="plan-student-name" placeholder="Enter student's name" aria-label="Student's Name" required>
@@ -124,7 +125,10 @@
                     <button onclick="generateDevelopmentPlan()"><i class="fas fa-cogs"></i> Generate Plan</button>
                 </div>
 
-                <div id="development-plan-section" class="hidden"> <div id="plan-content"> <h4 style="margin-bottom: 10px;">Generated Plan:</h4> <div id="plan-text" style="white-space: pre-wrap; text-align: left; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+                <div id="development-plan-section" class="hidden">
+                    <div id="plan-content">
+                        <h4 style="margin-bottom: 10px;">Generated Plan:</h4>
+                        <div id="plan-text" style="white-space: pre-wrap; text-align: left; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
                              </div>
                     </div>
                     <div class="button-group" style="justify-content: flex-start; margin-top: 15px;">
@@ -132,9 +136,8 @@
                     </div>
                 </div>
             </div>
-             </section>
+        </section>
 
     </div> <script src="questions.js"></script>
     <script src="results.js"></script>
-
-</html>
+    <script src="script.js"></script> </html>
