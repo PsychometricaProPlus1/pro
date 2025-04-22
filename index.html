@@ -6,8 +6,8 @@
     <title>Psychometrica Pro Plus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -29,7 +29,7 @@
                 <input type="password" id="password" placeholder="Enter password" aria-label="Password" required>
             </div>
             <div class="button-group">
-                <button class="btn" onclick="login()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <button class="btn primary" onclick="login()"><i class="fas fa-sign-in-alt"></i> Login</button>
             </div>
         </section>
 
@@ -50,37 +50,41 @@
                 </select>
             </div>
             <div class="button-group">
-                <button class="btn" onclick="showLanguageSelection()"><i class="fas fa-arrow-right"></i> Next</button>
+                <button class="btn primary" onclick="showLanguageSelection()"><i class="fas fa-arrow-right"></i> Next</button>
                 <button class="btn secondary" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
-        </section>
+            </section>
 
         <section id="language-selection" class="hidden">
             <h2>Select Language</h2>
-            <div class="button-group">
-                <button class="btn" onclick="startTest('english')"><i class="fas fa-globe"></i> English</button>
-                <button class="btn" onclick="startTest('marathi')"><i class="fas fa-globe"></i> मराठी</button>
-                <button class="btn secondary" onclick="goBack('language-selection')"><i class="fas fa-arrow-left"></i> Back</button>
+            <div class="button-group language-buttons">
+                <button class="btn primary" onclick="startTest('english')"><i class="fas fa-language"></i> English</button>
+                <button class="btn primary" onclick="startTest('marathi')"><i class="fas fa-language"></i> मराठी</button>
             </div>
-        </section>
+             <div class="button-group navigation-buttons">
+                 <button class="btn secondary" onclick="goBack('language-selection')"><i class="fas fa-arrow-left"></i> Back</button>
+            </div>
+             </section>
 
         <section id="info-section" class="hidden">
             <h2 id="info-title">Student Information</h2>
-            <div id="info-step"></div>
-            <div class="button-group">
+            <div id="info-step">
+                </div>
+            <div class="button-group navigation-buttons">
                 <button class="btn secondary" id="info-back-btn" onclick="previousInfoStep()" style="display: none;"><i class="fas fa-arrow-left"></i> Back</button>
-                <button class="btn" id="info-next-btn" onclick="nextInfoStep()"><i class="fas fa-arrow-right"></i> Next</button>
+                <button class="btn primary" id="info-next-btn" onclick="nextInfoStep()"><i class="fas fa-arrow-right"></i> Next</button>
             </div>
-        </section>
+             </section>
 
         <section id="instructions-section" class="hidden">
             <h2 id="instructions-title">Instructions</h2>
-            <div id="instructions-content"></div>
-            <div class="button-group">
-                <button class="btn" onclick="showTest()"><i class="fas fa-play"></i> Start Test</button>
-                <button class="btn secondary" onclick="goBack('instructions-section')"><i class="fas fa-arrow-left"></i> Back</button>
+            <div id="instructions-content" class="instructions-box">
+                </div>
+            <div class="button-group navigation-buttons">
+                 <button class="btn secondary" onclick="goBack('instructions-section')"><i class="fas fa-arrow-left"></i> Back</button>
+                <button class="btn primary" onclick="showTest()"><i class="fas fa-play"></i> Start Test</button>
             </div>
-        </section>
+             </section>
 
         <section id="test-section" class="hidden">
             <h2 id="test-title">Psychological Test</h2>
@@ -91,45 +95,53 @@
                 </div>
                 <div class="progress-text" id="progress-text">Question 0 of 0</div>
             </div>
-            <div id="questions"></div>
+            <div id="questions">
+                </div>
             <div id="reward-message" class="hidden"></div>
-            <div class="button-group">
+            <div class="button-group navigation-buttons">
                 <button class="btn secondary" id="back-btn" onclick="previousQuestion()" style="display: none;"><i class="fas fa-arrow-left"></i> Back</button>
-                <button class="btn" id="next-btn" onclick="nextQuestion()" style="display: none;"><i class="fas fa-arrow-right"></i> Next</button>
-                <button class="btn" id="submit-btn" onclick="submitTest()" style="display: none;"><i class="fas fa-check"></i> Submit</button>
+                <button class="btn primary" id="next-btn" onclick="nextQuestion()" style="display: none;"><i class="fas fa-arrow-right"></i> Next</button>
+                <button class="btn success" id="submit-btn" onclick="submitTest()" style="display: none;"><i class="fas fa-check"></i> Submit</button>
             </div>
-        </section>
+             </section>
 
         <section id="results-section" class="hidden">
             <h2 id="results-title">Your Results</h2>
             <div id="trophy-sign" class="hidden">🏆</div>
-            <div id="result-content"></div>
+            <div id="result-content">
+                </div>
             <div class="contact-message">
-                <p>For detailed discussion and counseling regarding your child's progress plan, please contact us. Share your result with admin now for further processing.</p>
+                <p><i class="fas fa-info-circle"></i> For detailed discussion and counseling regarding your child's progress plan, please contact us. Share your result with admin now for further processing.</p>
             </div>
-            <div class="button-group">
-                <button class="btn whatsapp-btn" onclick="shareOnWhatsApp()"><i class="fas fa-whatsapp"></i> Share on WhatsApp</button>
+            <div class="button-group result-actions">
+                 <button class="btn whatsapp-btn" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i> Share on WhatsApp</button>
+                 <button class="btn email-btn" onclick="emailResult(false)"><i class="fas fa-envelope"></i> Email Result</button>
+                <button class="btn copy-btn" onclick="copyResultCode()"><i class="fas fa-copy"></i> Copy Result</button>
+                <button class="btn download-btn" onclick="downloadCertificate()"><i class="fas fa-download"></i> Download Certificate</button>
                 <button class="btn secondary" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                <button class="btn" onclick="copyResultCode()"><i class="fas fa-copy"></i> Copy Result</button>
-                <button class="btn" onclick="downloadCertificate()"><i class="fas fa-download"></i> Download Certificate</button>
             </div>
-        </section>
+             </section>
 
         <section id="admin-section" class="hidden">
             <h2>Admin Dashboard</h2>
+
             <div class="alert critical-warning" id="backup-alert-top">
                 <h4><i class="fas fa-exclamation-triangle"></i> Critical Data Storage Notice</h4>
                 <p><strong>Important:</strong> All student data and test results are stored locally in your browser's storage. This data is at risk of being permanently lost upon logout, browser closure, cache clearing, or device change. To prevent data loss, it is critical to <strong>immediately export all data to CSV</strong> using the provided export options below. Once data is cleared, it cannot be retrieved. Ensure regular backups to safeguard your records.</p>
-                <div class="warning-actions">
-                    <button class="btn" onclick="exportAllToExcel()"><i class="fas fa-file-export"></i> Export Results to CSV</button>
-                    <button class="btn" onclick="exportStudentInfoToCSV()"><i class="fas fa-file-export"></i> Export Student Info to CSV</button>
+                <div class="warning-actions button-group">
+                    <button class="btn export-btn" onclick="exportAllToExcel()"><i class="fas fa-file-csv"></i> Export Results to CSV</button>
+                    <button class="btn export-btn" onclick="exportStudentInfoToCSV()"><i class="fas fa-file-csv"></i> Export Student Info to CSV</button>
                 </div>
             </div>
-            <div class="admin-controls">
-                <button class="btn" onclick="exportAllToExcel()"><i class="fas fa-file-export"></i> Export All to CSV</button>
-                <button class="btn secondary" onclick="clearReports()"><i class="fas fa-trash"></i> Clear Reports</button>
+
+            <div class="admin-controls button-group">
+                <button class="btn export-btn" onclick="exportAllToExcel()"><i class="fas fa-file-csv"></i> Export All Results</button>
+                <button class="btn danger" onclick="clearReports()"><i class="fas fa-trash"></i> Clear Reports</button>
+                 <button class="btn whatsapp-btn" onclick="shareOnWhatsApp(true)"><i class="fab fa-whatsapp"></i> WhatsApp Last Report</button>
+                <button class="btn email-btn" onclick="emailResult(true)"><i class="fas fa-envelope"></i> Email Last Report</button>
                 <button class="btn secondary" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </div>
+
             <div class="admin-form">
                 <h3>Generate Student Development Plan</h3>
                 <div class="form-group">
@@ -153,23 +165,26 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="plan-score">Score (%):</label>
-                    <input type="number" id="plan-score" placeholder="Enter score (0-100)" min="0" max="100" aria-label="Score" required>
+                    <label for="plan-score">Score/Level Indicator (%):</label>
+                    <input type="number" id="plan-score" placeholder="Enter score (0-100) for level" min="0" max="100" aria-label="Score for Plan Level" required>
                 </div>
                 <div class="button-group">
-                    <button class="btn" onclick="generateDevelopmentPlan()"><i class="fas fa-cogs"></i> Generate Plan</button>
+                    <button class="btn primary" onclick="generateDevelopmentPlan()"><i class="fas fa-cogs"></i> Generate Plan</button>
                 </div>
             </div>
             <div id="plan-content" class="hidden">
-                <h3>Development Plan</h3>
-                <div id="plan-text" style="white-space: pre-wrap; text-align: left; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;"></div>
+                <h3>Generated Development Plan</h3>
+                <div id="plan-text" class="plan-output-box"></div>
                 <div class="button-group">
-                    <button class="btn" onclick="copyPlan()"><i class="fas fa-copy"></i> Copy Plan</button>
+                    <button class="btn copy-btn" onclick="copyPlan()"><i class="fas fa-copy"></i> Copy Plan</button>
+                     <button class="btn whatsapp-btn" onclick="sharePlanOnWhatsApp()"><i class="fab fa-whatsapp"></i> WhatsApp Plan</button>
+                    <button class="btn email-btn" onclick="emailPlan()"><i class="fas fa-envelope"></i> Email Plan</button>
                 </div>
             </div>
+
             <div class="admin-form">
-                <h3>Student Information Form</h3>
-                <div class="form-group">
+                <h3>Add/Update Student Information</h3>
+                 <div class="form-group">
                     <label for="info-student-name">Student's Name:</label>
                     <input type="text" id="info-student-name" placeholder="Enter student's name" aria-label="Student's Name" required>
                 </div>
@@ -178,11 +193,11 @@
                     <input type="text" id="info-parent-name" placeholder="Enter parent's name" aria-label="Parent's Name" required>
                 </div>
                 <div class="form-group">
-                    <label for="info-mobile">Mobile:</label>
-                    <input type="tel" id="info-mobile" placeholder="Enter mobile number" aria-label="Mobile" required>
+                    <label for="info-mobile">Mobile (Parent/Guardian):</label>
+                    <input type="tel" id="info-mobile" placeholder="Enter 10-digit mobile" aria-label="Mobile" required pattern="\d{10}">
                 </div>
                 <div class="form-group">
-                    <label for="info-email">Email:</label>
+                    <label for="info-email">Email (Parent/Guardian):</label>
                     <input type="email" id="info-email" placeholder="Enter email" aria-label="Email" required>
                 </div>
                 <div class="form-group">
@@ -202,6 +217,7 @@
                         <option value="State">State Board</option>
                         <option value="IB">IB</option>
                         <option value="IGCSE">IGCSE</option>
+                         <option value="Other">Other</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -227,49 +243,73 @@
                     </select>
                 </div>
                 <div class="button-group">
-                    <button class="btn" onclick="submitStudentInfo()"><i class="fas fa-save"></i> Submit</button>
+                    <button class="btn success" onclick="submitStudentInfo()"><i class="fas fa-save"></i> Save Student Info</button>
                 </div>
             </div>
+
             <div id="student-info-content">
-                <h3>Student Information</h3>
-                <div class="alert critical-warning" id="backup-alert">
-                    <h4><i class="fas fa-exclamation-triangle"></i> Critical Data Storage Notice</h4>
-                    <p><strong>Important:</strong> All student data and test results are stored locally in your browser's storage. This data is at risk of being permanently lost upon logout, browser closure, cache clearing, or device change. To prevent data loss, it is critical to <strong>immediately export all data to CSV</strong> using the provided export options below. Once data is cleared, it cannot be retrieved. Ensure regular backups to safeguard your records.</p>
-                    <div class="warning-actions">
-                        <button class="btn" onclick="exportAllToExcel()"><i class="fas fa-file-export"></i> Export Results to CSV</button>
-                        <button class="btn" onclick="exportStudentInfoToCSV()"><i class="fas fa-file-export"></i> Export Student Info to CSV</button>
-                    </div>
+                <h3>Stored Student Information</h3>
+                 <div class="alert critical-warning" id="backup-alert-bottom">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Data Backup Reminder</h4>
+                    <p>Remember to regularly export student information using the button below to prevent data loss.</p>
                 </div>
                 <div class="button-group">
-                    <button class="btn" onclick="exportStudentInfoToCSV()"><i class="fas fa-file-export"></i> Export Student Info to CSV</button>
-                    <button class="btn secondary" onclick="clearStudentInfo()"><i class="fas fa-trash"></i> Clear Student Info</button>
+                    <button class="btn export-btn" onclick="exportStudentInfoToCSV()"><i class="fas fa-file-csv"></i> Export Student Info to CSV</button>
+                    <button class="btn danger" onclick="clearStudentInfo()"><i class="fas fa-trash"></i> Clear Student Info</button>
                 </div>
-                <table id="student-info-table">
-                    <thead>
-                        <tr>
-                            <th>Student Name</th>
-                            <th>Parent Name</th>
-                            <th>Mobile</th>
-                            <th>Email</th>
-                            <th>School</th>
-                            <th>Age</th>
-                            <th>Board</th>
-                            <th>Standard</th>
-                            <th>Medium</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="table-container">
+                     <table id="student-info-table">
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Parent Name</th>
+                                <th>Mobile</th>
+                                <th>Email</th>
+                                <th>School</th>
+                                <th>Age</th>
+                                <th>Board</th>
+                                <th>Standard</th>
+                                <th>Medium</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                </div>
             </div>
-            <div id="admin-content"></div>
-        </section>
+
+             <div id="results-display-content">
+                 <h3>Stored Test Results</h3>
+                  <div class="alert critical-warning" id="backup-alert-results">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Data Backup Reminder</h4>
+                    <p>Remember to regularly export test results using the button below to prevent data loss.</p>
+                </div>
+                 <div class="button-group">
+                     <button class="btn export-btn" onclick="exportAllToExcel()"><i class="fas fa-file-csv"></i> Export All Results to CSV</button>
+                     <button class="btn danger" onclick="clearReports()"><i class="fas fa-trash"></i> Clear All Results</button>
+                 </div>
+                 <div class="table-container">
+                    <table id="results-table">
+                         <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Grade</th>
+                                <th>Date</th>
+                                <th>Summary</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            </tbody>
+                    </table>
+                 </div>
+            </div>
+             </section>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="questions.js"></script>
     <script src="results.js"></script>
-    <script src="plan.js"></script>
-    <script src="script.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'931c23a8491fbccb',t:'MTc0NDg5NTE4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <script src="plan.js"></script> <script src="script.js"></script>
+
 </body>
 </html>
