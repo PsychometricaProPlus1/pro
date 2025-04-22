@@ -1,7 +1,7 @@
-console.log(">>> plan.js: Starting execution...");
-// plan.js
+// plan.js - Corrected Version
 
 // Development Plan Templates (Bilingual: English | Marathi)
+
     const developmentPlans = {
         '5-8': {
             low: {
@@ -395,7 +395,10 @@ function copyPlan() {
     }
 }
 
-// Expose functions to window
-window.generateDevelopmentPlan = generateDevelopmentPlan;
-window.copyPlan = copyPlan;
-console.log(">>> plan.js: Assigning functions to window...");
+// ... (The generateDevelopmentPlanInternal and copyPlanInternal functions are defined above this) ...
+
+// Expose functions to window using the names script.js expects
+window.generateDevelopmentPlanInternal = generateDevelopmentPlanInternal;
+window.copyPlanInternal = copyPlanInternal;
+
+// Ensure there are NO extra characters (like a closing brace '}') after this line.
