@@ -241,17 +241,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Ensure plan functions (defined in plan.js) are globally accessible.
     // These assignments might be redundant if plan.js does it, but safe to include.
+    // Check if they exist BEFORE assigning, to avoid errors if plan.js failed
     if (typeof generateDevelopmentPlan !== 'undefined') {
         window.generateDevelopmentPlan = generateDevelopmentPlan;
     } else {
-        // This might log if plan.js hasn't run yet, but function should be available later
-        console.warn("generateDevelopmentPlan not found globally at this point in script.js execution!");
+        // Log warning if plan.js didn't load/assign correctly
+        console.warn("generateDevelopmentPlan not found globally after plan.js load!");
     }
     if (typeof copyPlan !== 'undefined') {
         window.copyPlan = copyPlan;
      } else {
-        // This might log if plan.js hasn't run yet
-        console.warn("copyPlan not found globally at this point in script.js execution!");
+        // Log warning if plan.js didn't load/assign correctly
+        console.warn("copyPlan not found globally after plan.js load!");
     }
 
 
