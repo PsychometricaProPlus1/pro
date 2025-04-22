@@ -1,3 +1,4 @@
+console.log(">>> plan.js: Starting execution...");
 // plan.js
 
 // Development Plan Templates (Bilingual: English | Marathi)
@@ -397,3 +398,4 @@ function copyPlan() {
 // Expose functions to window
 window.generateDevelopmentPlan = generateDevelopmentPlan;
 window.copyPlan = copyPlan;
+console.log(">>> plan.js: Assigning functions to window...");
