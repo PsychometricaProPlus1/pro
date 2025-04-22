@@ -1,4 +1,4 @@
-// script.js - Merged and Corrected Version with requestAnimationFrame fix
+// script.js - Corrected order for finding elements in showAdminDashboard
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("SCRIPT START: DOMContentLoaded event fired.");
@@ -6,26 +6,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Configuration ---
     const WORKER_URL = "https://my-auth-worker.equimedia4.workers.dev"; // Example URL
     const RESULTS_STORAGE_KEY = 'psychometric_results';
-    const STUDENT_INFO_STORAGE_KEY = 'student_info'; // Key for new student info form
+    const STUDENT_INFO_STORAGE_KEY = 'student_info';
 
     // --- State Variables ---
     let selectedStandard = '';
     let selectedLanguage = '';
-    let studentData = {}; // Holds data for the current test taker
-    let allResults = []; // Holds all test results (for admin)
-    let allStudentInfo = []; // Holds info from the admin's student info form
+    let studentData = {};
+    let allResults = [];
+    let allStudentInfo = [];
     let currentQuestionIndex = 0;
     let userAnswers = {};
-    let currentInfoStep = 0; // For multi-step student info during test flow
+    let currentInfoStep = 0;
 
-    // --- Info Fields Configuration (for test flow) ---
+    // --- Info Fields Configuration ---
     const infoFields = [
         { id: 'student-name', labelEn: "Student's Name", labelMr: 'विद्यार्थ्याचे नाव', type: 'text' },
         { id: 'parent-name', labelEn: "Parent's Name", labelMr: 'पालकांचे नाव', type: 'text' },
         { id: 'mobile', labelEn: 'Mobile', labelMr: 'मोबाइल', type: 'tel' },
         { id: 'email', labelEn: 'Email', labelMr: 'ईमेल', type: 'email' },
         { id: 'age', labelEn: 'Age', labelMr: 'वय', type: 'number' },
-        { id: 'grade', labelEn: 'Grade', labelMr: 'इयत्ता', type: 'text', readonly: true }, // Grade from standard selection
+        { id: 'grade', labelEn: 'Grade', labelMr: 'इयत्ता', type: 'text', readonly: true },
         {
             id: 'board', labelEn: 'Board', labelMr: 'बोर्ड', type: 'select', options: [
                 { value: '', textEn: 'Select Board', textMr: 'बोर्ड निवडा' },
@@ -34,14 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 { value: 'ICSE', textEn: 'ICSE', textMr: 'आयसीएसई' },
                 { value: 'IB', textEn: 'IB', textMr: 'आयबी' },
                 { value: 'IGCSE', textEn: 'IGCSE', textMr: 'आयजीसीएसई' },
-                 { value: 'Other', textEn: 'Other', textMr: 'इतर' } // Added Other based on admin form
+                 { value: 'Other', textEn: 'Other', textMr: 'इतर' }
             ]
         }
-        // Removed school and medium from here as they seem to be admin-only fields now
     ];
 
     // ========================================================================
-    // Utility Functions
+    // Utility Functions (Keep as before)
     // ========================================================================
 
     function showAlert(type, message) {
@@ -50,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (existingAlert) existingAlert.remove();
 
         const alertDiv = document.createElement('div');
-        alertDiv.className = `alert alert-${type}`; // Base class + specific type
+        alertDiv.className = `alert alert-${type}`;
         alertDiv.textContent = message;
 
         if (type === 'critical-warning') {
@@ -228,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!branding || !welcomeSection) {
             console.warn("Skipping welcome screen (no branding or section missing).");
-            postLoginNav(); // Navigate directly if welcome screen can't show
+            postLoginNav();
             return;
         }
 
@@ -236,7 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const brandAddress = branding.address || 'Address N/A';
         const brandPhone = branding.phone || 'Contact N/A';
 
-        // Add the button to the welcome message HTML
         welcomeSection.innerHTML = `
             <h2>Welcome to ${brandName}</h2>
             <p>${brandAddress}</p>
@@ -248,10 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
         welcomeSection.classList.remove("hidden");
         console.log('Welcome screen displayed with proceed button.');
 
-        // Add event listener AFTER adding the button to the DOM
          const proceedButton = document.getElementById('proceed-button');
          if (proceedButton) {
-             proceedButton.onclick = proceedToDashboard; // Assign the new function
+             proceedButton.onclick = proceedToDashboard;
          } else {
              console.error("Proceed button not found after adding it to welcome screen!");
          }
@@ -261,9 +258,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Proceed button clicked.');
         const welcomeSection = document.getElementById("welcome-section");
         if (welcomeSection) {
-            welcomeSection.classList.add('hidden'); // Hide the welcome section
+            welcomeSection.classList.add('hidden');
         }
-        postLoginNav(); // Call the original navigation function
+        postLoginNav();
     }
 
     function postLoginNav() {
@@ -387,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ========================================================================
-    // Test Flow Logic
+    // Test Flow Logic (Keep as before)
     // ========================================================================
 
     function showLanguageSelection() {
@@ -846,7 +843,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const resultData = {
-                studentData: { ...studentData, language: selectedLanguage }, // Store language with result
+                studentData: { ...studentData, language: selectedLanguage },
                 result: result.detailedResult,
                 date: result.date,
                 summary: result.summary
@@ -886,7 +883,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const detailedScores = result.detailedResult?.scores;
           if (detailedScores) {
               if (selectedStandard <= 8) {
-                  isHighScore = parseFloat(detailedScores.percentage) > 80; // Ensure percentage is number
+                  isHighScore = parseFloat(detailedScores.percentage) > 80;
               } else {
                   isHighScore = Object.values(detailedScores).some(score => score > 30);
               }
@@ -980,7 +977,7 @@ document.addEventListener('DOMContentLoaded', () => {
          const res = lastResult.result || {};
          const scores = res.scores || {};
 
-          const isMarathi = sd.language === 'marathi'; // Use language stored with result
+          const isMarathi = sd.language === 'marathi';
 
          let text = `*Psychometrica Pro Plus Results*\n\n`;
          text += `*${isMarathi ? 'विद्यार्थी' : 'Student'}:* ${sd['student-name']}\n`;
@@ -1164,76 +1161,100 @@ document.addEventListener('DOMContentLoaded', () => {
     // Admin Section Logic
     // ========================================================================
 
-    // --- MODIFIED: showAdminDashboard uses requestAnimationFrame ---
+    // --- REVISED: showAdminDashboard ---
     function showAdminDashboard() {
-        console.log('Showing admin dashboard.');
+        console.log('>>> showAdminDashboard: Attempting to find adminSection first...');
+
         const adminSection = document.getElementById('admin-section');
-        const resultsTableBody = document.querySelector('#results-table tbody');
-        const studentInfoTableBody = document.querySelector('#student-info-table tbody');
-        const backupAlertTop = document.getElementById('backup-alert-top');
 
-        // Check if elements exist
-        if (adminSection && resultsTableBody && studentInfoTableBody && backupAlertTop) {
-            // Make the section visible FIRST
-            adminSection.classList.remove('hidden');
-            backupAlertTop.style.display = 'block'; // Make sure alert is visible
+        // Step 1: Check if adminSection exists
+        if (adminSection) {
+            console.log('>>> adminSection found. Removing hidden class...');
+            adminSection.classList.remove('hidden'); // Make it potentially visible
 
-            // --- Defer the content population using requestAnimationFrame ---
-            requestAnimationFrame(() => {
-                console.log('Populating admin dashboard inside requestAnimationFrame');
-                try { // Add try...catch for safety inside the deferred code
-                    // Populate Results Table
-                    resultsTableBody.innerHTML = ''; // Clear previous entries
-                    if (allResults.length === 0) {
-                        resultsTableBody.innerHTML = '<tr><td colspan="4">No test results available.</td></tr>';
-                    } else {
-                        [...allResults].reverse().forEach(result => {
-                            const row = resultsTableBody.insertRow();
-                            const studentInfoForResult = result.studentData || {};
-                            row.insertCell().textContent = studentInfoForResult['student-name'] || 'N/A';
-                            row.insertCell().textContent = studentInfoForResult.grade || 'N/A';
-                            row.insertCell().textContent = result.date || 'N/A';
-                            row.insertCell().textContent = result.summary || 'N/A';
-                        });
-                    }
+            // Step 2: NOW try to find elements INSIDE the (hopefully) visible adminSection
+            console.log('>>> Finding inner elements AFTER unhiding adminSection...');
+            const resultsTableBody = adminSection.querySelector('#results-table tbody'); // Search within adminSection
+            const studentInfoTableBody = adminSection.querySelector('#student-info-table tbody'); // Search within adminSection
+            const backupAlertTop = adminSection.querySelector('#backup-alert-top'); // Search within adminSection
 
-                    // Populate Student Info Table
-                    studentInfoTableBody.innerHTML = ''; // Clear previous entries
-                    if (allStudentInfo.length === 0) {
-                        studentInfoTableBody.innerHTML = '<tr><td colspan="9">No student information submitted via admin form.</td></tr>';
-                    } else {
-                        [...allStudentInfo].reverse().forEach(info => {
-                            const row = studentInfoTableBody.insertRow();
-                            row.insertCell().textContent = info.studentName || 'N/A';
-                            row.insertCell().textContent = info.parentName || 'N/A';
-                            row.insertCell().textContent = info.mobile || 'N/A';
-                            row.insertCell().textContent = info.email || 'N/A';
-                            row.insertCell().textContent = info.school || 'N/A';
-                            row.insertCell().textContent = info.age || 'N/A';
-                            row.insertCell().textContent = info.board || 'N/A';
-                            row.insertCell().textContent = info.standard || 'N/A';
-                            row.insertCell().textContent = info.medium || 'N/A';
-                        });
-                    }
-
-                    const planContent = document.getElementById('plan-content');
-                    if (planContent) planContent.classList.add('hidden'); // Hide generated plan initially
-
-                    updateBrandingThroughout(); // Update branding only AFTER ensuring content is ready
-
-                } catch (error) {
-                     console.error("Error populating dashboard inside rAF:", error);
-                     showAlert('error', 'Failed to populate dashboard content.');
-                     resetUI(); // Still reset if population itself fails
-                }
+            console.log('>>> Inner Elements Found Check:', {
+                 resultsTableBodyExists: !!resultsTableBody,
+                 studentInfoTableBodyExists: !!studentInfoTableBody,
+                 backupAlertTopExists: !!backupAlertTop
             });
-             // --- End deferral ---
+
+            // Step 3: Check if the INNER elements were found
+            if (resultsTableBody && studentInfoTableBody && backupAlertTop) {
+                console.log('>>> All necessary admin elements found.');
+                backupAlertTop.style.display = 'block'; // Ensure alert is visible
+
+                // Step 4: Defer population using requestAnimationFrame
+                requestAnimationFrame(() => {
+                    console.log('Populating admin dashboard inside requestAnimationFrame');
+                    try {
+                        // Populate Results Table
+                        resultsTableBody.innerHTML = '';
+                        if (allResults.length === 0) {
+                            resultsTableBody.innerHTML = '<tr><td colspan="4">No test results available.</td></tr>';
+                        } else {
+                            [...allResults].reverse().forEach(result => {
+                                const row = resultsTableBody.insertRow();
+                                const studentInfoForResult = result.studentData || {};
+                                row.insertCell().textContent = studentInfoForResult['student-name'] || 'N/A';
+                                row.insertCell().textContent = studentInfoForResult.grade || 'N/A';
+                                row.insertCell().textContent = result.date || 'N/A';
+                                row.insertCell().textContent = result.summary || 'N/A';
+                            });
+                        }
+
+                        // Populate Student Info Table
+                        studentInfoTableBody.innerHTML = '';
+                        if (allStudentInfo.length === 0) {
+                            studentInfoTableBody.innerHTML = '<tr><td colspan="9">No student information submitted via admin form.</td></tr>';
+                        } else {
+                            [...allStudentInfo].reverse().forEach(info => {
+                                const row = studentInfoTableBody.insertRow();
+                                row.insertCell().textContent = info.studentName || 'N/A';
+                                row.insertCell().textContent = info.parentName || 'N/A';
+                                row.insertCell().textContent = info.mobile || 'N/A';
+                                row.insertCell().textContent = info.email || 'N/A';
+                                row.insertCell().textContent = info.school || 'N/A';
+                                row.insertCell().textContent = info.age || 'N/A';
+                                row.insertCell().textContent = info.board || 'N/A';
+                                row.insertCell().textContent = info.standard || 'N/A';
+                                row.insertCell().textContent = info.medium || 'N/A';
+                            });
+                        }
+
+                        const planContent = document.getElementById('plan-content');
+                        if (planContent) planContent.classList.add('hidden');
+
+                        updateBrandingThroughout();
+
+                    } catch (error) {
+                         console.error("Error populating dashboard inside rAF:", error);
+                         showAlert('error', 'Failed to populate dashboard content.');
+                         resetUI();
+                    }
+                });
+
+            } else {
+                // Error: Inner elements NOT found even after unhiding parent
+                showAlert('error', 'Error loading admin dashboard content (Inner Elements Missing).');
+                console.error("Admin dashboard INNER elements missing after unhide:", {
+                    resultsTableBody, studentInfoTableBody, backupAlertTop
+                });
+                 // Attempt to hide admin section again before reset? Optional.
+                 adminSection.classList.add('hidden');
+                resetUI();
+            }
 
         } else {
-            // This 'else' block should now be much less likely to run
-            showAlert('error', 'Error loading admin dashboard elements (Check Failed).');
-            console.error("Admin dashboard elements missing (Check Failed):", { adminSection, resultsTableBody, studentInfoTableBody, backupAlertTop });
-            resetUI(); // Go back to login if check fails
+            // Error: Main adminSection itself was NOT found
+            showAlert('error', 'Error loading admin dashboard section (Admin Section Missing).');
+            console.error("Admin dashboard section (#admin-section) not found!");
+            resetUI();
         }
     }
 
@@ -1265,7 +1286,7 @@ document.addEventListener('DOMContentLoaded', () => {
      };
 
 
-    function exportAllToExcel() { // Exports results data
+    function exportAllToExcel() {
         if (!allResults.length) {
             showAlert('warning', 'No test results available to export.');
             return;
@@ -1273,7 +1294,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`Exporting ${allResults.length} test results to CSV...`);
 
          let csvHeaders = [
-             "Student Name", "Parent Name", "Mobile", "Email", "Age", "Grade", "Board", "Language", // Added Language
+             "Student Name", "Parent Name", "Mobile", "Email", "Age", "Grade", "Board", "Language",
              "Date", "Summary", "Analysis",
              "R Score", "I Score", "A Score", "S Score", "E Score", "C Score",
              "Aptitude Score", "Aptitude Total", "Aptitude Percent",
@@ -1291,7 +1312,7 @@ document.addEventListener('DOMContentLoaded', () => {
              const isGrade9to10 = !isNaN(gradeNum) && (gradeNum === 9 || gradeNum === 10);
 
              let rowData = [
-                 student['student-name'], student['parent-name'], student['mobile'], student['email'], student['age'], student['grade'], student['board'], student['language'], // Added language
+                 student['student-name'], student['parent-name'], student['mobile'], student['email'], student['age'], student['grade'], student['board'], student['language'],
                  result.date, result.summary, res.analysis,
                  isGrade9to10 ? scores.realistic : '', isGrade9to10 ? scores.investigative : '', isGrade9to10 ? scores.artistic : '', isGrade9to10 ? scores.social : '', isGrade9to10 ? scores.enterprising : '', isGrade9to10 ? scores.conventional : '',
                  isGrade5to8 ? scores.score : '', isGrade5to8 ? scores.totalQuestions : '', isGrade5to8 ? scores.percentage : '',
@@ -1305,7 +1326,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Test results CSV export initiated.");
     }
 
-    function exportStudentInfoToCSV() { // Exports admin-submitted student info
+    function exportStudentInfoToCSV() {
         if (!allStudentInfo.length) {
             showAlert('warning', 'No student information (from admin form) available to export.');
             return;
@@ -1349,7 +1370,7 @@ document.addEventListener('DOMContentLoaded', () => {
      }
 
 
-    function submitStudentInfo() { // Handles admin form submission
+    function submitStudentInfo() {
          const studentName = document.getElementById('info-student-name')?.value.trim();
          const parentName = document.getElementById('info-parent-name')?.value.trim();
          const mobile = document.getElementById('info-mobile')?.value.trim();
@@ -1403,7 +1424,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    function clearStudentInfo() { // Clears admin-submitted student info
+    function clearStudentInfo() {
         if (confirm('WARNING: This will permanently delete all student information submitted via the admin form from local storage. Export first if needed. Are you sure?')) {
              if (confirm('Second confirmation: Really delete ALL admin-submitted student info? This cannot be undone.')) {
                 console.log('Clearing all locally stored admin-submitted student information...');
@@ -1420,9 +1441,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-     // ========================================================================
-     // Development Plan Generation Call (Admin Section)
-     // ========================================================================
      function generateDevelopmentPlan() {
           console.log("generateDevelopmentPlan called - attempting to use Internal function");
          if (typeof window.generateDevelopmentPlanInternal !== 'function') {
@@ -1449,7 +1467,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========================================================================
 
     console.log('SCRIPT INFO: Assigning essential functions to window object...');
-    // Assign functions needed by HTML onclick attributes
     window.login = login;
     window.confirmLogout = confirmLogout;
     window.goBack = goBack;
@@ -1471,7 +1488,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.submitStudentInfo = submitStudentInfo;
     window.exportStudentInfoToCSV = exportStudentInfoToCSV;
     window.clearStudentInfo = clearStudentInfo;
-    // proceedToDashboard is assigned dynamically via element.onclick, not needed on window
 
     console.log('SCRIPT INFO: Initializing application state...');
     loadResults();
