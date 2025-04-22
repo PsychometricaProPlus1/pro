@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -71,20 +71,20 @@
         <section id="admin-section" class="hidden">
             <h2>Admin Dashboard</h2>
 
-             <div class="admin-subsection">
+            <div class="admin-subsection">
                 <h3><i class="fas fa-user-plus"></i> Add Student Information</h3>
-                <div class="student-info-form">
-                    <div class="form-group"> <label for="info-student-name">Student Name:</label> <input type="text" id="info-student-name"> </div>
-                    <div class="form-group"> <label for="info-parent-name">Parent Name:</label> <input type="text" id="info-parent-name"> </div>
-                    <div class="form-group"> <label for="info-mobile">Mobile:</label> <input type="tel" id="info-mobile"> </div>
-                    <div class="form-group"> <label for="info-email">Email:</label> <input type="email" id="info-email"> </div>
-                    <div class="form-group"> <label for="info-school">School:</label> <input type="text" id="info-school"> </div>
-                    <div class="form-group"> <label for="info-age">Age:</label> <input type="number" id="info-age" min="5" max="25"> </div>
-                    <div class="form-group"> <label for="info-board">Board:</label> <select id="info-board"> <option value="">Select Board</option> <option value="SSC">SSC</option> <option value="CBSE">CBSE</option> <option value="ICSE">ICSE</option> <option value="IB">IB</option> <option value="IGCSE">IGCSE</option> </select> </div>
-                    <div class="form-group"> <label for="info-standard">Standard/Grade:</label> <select id="info-standard"> <option value="">Select Grade</option> <option value="5">5th</option> <option value="6">6th</option> <option value="7">7th</option> <option value="8">8th</option> <option value="9">9th</option> <option value="10">10th</option> </select> </div>
-                    <div class="form-group"> <label for="info-medium">Medium:</label> <select id="info-medium"> <option value="">Select Medium</option> <option value="English">English</option> <option value="Marathi">Marathi</option> </select> </div>
-                    <button onclick="submitStudentInfo()">Submit Student Info</button>
-                </div>
+                 <div class="student-info-form">
+                     <div class="form-group"> <label for="info-student-name">Student Name:</label> <input type="text" id="info-student-name"> </div>
+                     <div class="form-group"> <label for="info-parent-name">Parent Name:</label> <input type="text" id="info-parent-name"> </div>
+                     <div class="form-group"> <label for="info-mobile">Mobile:</label> <input type="tel" id="info-mobile"> </div>
+                     <div class="form-group"> <label for="info-email">Email:</label> <input type="email" id="info-email"> </div>
+                     <div class="form-group"> <label for="info-school">School:</label> <input type="text" id="info-school"> </div>
+                     <div class="form-group"> <label for="info-age">Age:</label> <input type="number" id="info-age" min="5" max="25"> </div>
+                     <div class="form-group"> <label for="info-board">Board:</label> <select id="info-board"> <option value="">Select Board</option> <option value="SSC">SSC</option> <option value="CBSE">CBSE</option> <option value="ICSE">ICSE</option> <option value="IB">IB</option> <option value="IGCSE">IGCSE</option> </select> </div>
+                     <div class="form-group"> <label for="info-standard">Standard/Grade:</label> <select id="info-standard"> <option value="">Select Grade</option> <option value="5">5th</option> <option value="6">6th</option> <option value="7">7th</option> <option value="8">8th</option> <option value="9">9th</option> <option value="10">10th</option> </select> </div>
+                     <div class="form-group"> <label for="info-medium">Medium:</label> <select id="info-medium"> <option value="">Select Medium</option> <option value="English">English</option> <option value="Marathi">Marathi</option> </select> </div>
+                     <button onclick="submitStudentInfo()">Submit Student Info</button>
+                 </div>
             </div>
 
             <div class="admin-subsection">
@@ -99,35 +99,34 @@
                 <div class="button-group"> <button onclick="exportAllToExcel()"><i class="fas fa-file-excel"></i> Export Results to CSV</button> <button class="danger-button" onclick="clearReports()"><i class="fas fa-trash-alt"></i> Clear Test Results (Local)</button> </div>
             </div>
 
-            <div class="admin-subsection">
-                <h3><i class="fas fa-tasks"></i> Generate Development Plan</h3>
-                <div id="admin-plan-input-form">
-                    <div class="form-group">
-                        <label for="admin-plan-standard">Select Standard:</label>
-                        <select id="admin-plan-standard" onchange="toggleRiaşecInputs()">
-                            <option value="">-- Select Standard --</option>
-                            <option value="5-8">5th - 8th</option>
-                            <option value="9-10">9th - 10th</option>
-                        </select>
-                    </div>
-                    <div id="admin-riasec-inputs" class="hidden">
-                        <p style="font-size: 0.9em; margin-bottom: 10px;">Enter RIASEC Scores (for 9th-10th):</p>
-                        <div class="riasec-grid">
-                            <div class="form-group"> <label for="admin-score-realistic">Realistic:</label> <input type="number" id="admin-score-realistic" min="0"> </div>
-                            <div class="form-group"> <label for="admin-score-investigative">Investigative:</label> <input type="number" id="admin-score-investigative" min="0"> </div>
-                            <div class="form-group"> <label for="admin-score-artistic">Artistic:</label> <input type="number" id="admin-score-artistic" min="0"> </div>
-                            <div class="form-group"> <label for="admin-score-social">Social:</label> <input type="number" id="admin-score-social" min="0"> </div>
-                            <div class="form-group"> <label for="admin-score-enterprising">Enterprising:</label> <input type="number" id="admin-score-enterprising" min="0"> </div>
-                            <div class="form-group"> <label for="admin-score-conventional">Conventional:</label> <input type="number" id="admin-score-conventional" min="0"> </div>
-                        </div>
-                    </div>
-                    <div class="button-group" style="justify-content: flex-start; margin-bottom: 15px;">
-                         <button onclick="adminGeneratePlanFromInputs()"><i class="fas fa-file-alt"></i> Generate Plan from Inputs</button>
-                    </div>
+             <div class="admin-subsection admin-form"> <h3><i class="fas fa-tasks"></i> Generate Student Development Plan</h3>
+                 <div class="form-group">
+                     <label for="plan-student-name">Student's Name:</label>
+                     <input type="text" id="plan-student-name" placeholder="Enter student's name" aria-label="Student's Name" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="plan-age">Age:</label>
+                     <input type="number" id="plan-age" placeholder="Enter age" min="10" max="18" aria-label="Age" required>
+                 </div>
+                 <div class="form-group">
+                     <label for="plan-standard">Standard:</label>
+                     <select id="plan-standard" aria-label="Select Grade" required>
+                         <option value="">Select Grade</option>
+                         <option value="5">5th</option> <option value="6">6th</option> <option value="7">7th</option>
+                         <option value="8">8th</option> <option value="9">9th</option> <option value="10">10th</option>
+                     </select>
+                 </div>
+                 <div class="form-group">
+                     <label for="plan-score">Score (%):</label>
+                     <input type="number" id="plan-score" placeholder="Enter score (0-100)" min="0" max="100" aria-label="Score" required>
+                 </div>
+                 <div class="button-group" style="justify-content: flex-start; margin-bottom: 15px;">
+                    <button onclick="generateDevelopmentPlan()"><i class="fas fa-cogs"></i> Generate Plan</button>
                 </div>
 
-                <div id="development-plan-section" class="hidden">
-                    <div id="plan-content"></div>
+                <div id="development-plan-section" class="hidden"> <div id="plan-content"> <h4 style="margin-bottom: 10px;">Generated Plan:</h4> <div id="plan-text" style="white-space: pre-wrap; text-align: left; padding: 10px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9;">
+                             </div>
+                    </div>
                     <div class="button-group" style="justify-content: flex-start; margin-top: 15px;">
                         <button onclick="copyPlan()"><i class="fas fa-copy"></i> Copy Plan</button>
                     </div>
@@ -135,14 +134,7 @@
             </div>
              </section>
 
-    </div> <style>
-        .riasec-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 15px; }
-    </style>
-
-    <script src="questions.js"></script>
+    </div> <script src="questions.js"></script>
     <script src="results.js"></script>
-    <script src="plan.js"></script>
-    <script src="script.js"></script>
-
-</body>
+    <script src="plan.js"></script> <script src="script.js"></script> </body>
 </html>
