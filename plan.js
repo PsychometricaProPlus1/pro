@@ -1,4 +1,6 @@
-// plan.js - Corrected Version
+// plan.js - Corrected Version with Debug Logging
+
+console.log(">>> plan.js: Starting execution..."); // <<< ADDED DEBUG LOG
 
 // Development Plan Templates (Bilingual: English | Marathi)
 
@@ -395,7 +397,11 @@ function copyPlan() {
     }
 }
 
+
 // ... (The generateDevelopmentPlanInternal and copyPlanInternal functions are defined above this) ...
+
+
+console.log(">>> plan.js: Assigning functions to window..."); // <<< ADDED DEBUG LOG
 
 // Expose functions to window using the names script.js expects
 window.generateDevelopmentPlanInternal = generateDevelopmentPlanInternal;
