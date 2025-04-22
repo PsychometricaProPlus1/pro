@@ -1,10 +1,10 @@
 // plan.js
 
 // Development Plan Templates (Bilingual: English | Marathi)
-    const developmentPlans = {
-        '5-8': {
-            low: {
-                text: `Plan of Action for Student Development (Grades 5-8) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 5-8)\n
+const developmentPlans = {
+    '5-8': {
+        low: {
+            text: `Plan of Action for Student Development (Grades 5-8) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 5-8)\n
 Student: {{studentName}}, Age: {{age}}, Standard: {{standard}}th | विद्यार्थी: {{studentName}}, वय: {{age}}, इयत्ता: {{standard}}वी\n\n
 Objective: Build foundational skills, curiosity, and confidence. | उद्देश: मूलभूत कौशल्ये, जिज्ञासा आणि आत्मविश्वास वाढवणे.\n\n
 Development Plan: | विकास योजना:\n
@@ -47,9 +47,9 @@ Suggestions for Parents: | पालकांसाठी सूचना:\n
 - Discuss 'Chhota Bheem' episodes (1 weekly). Limit screen time to 45 minutes daily. | 'छोटा भीम' भागांवर चर्चा करा (आठवड्यातून १). स्क्रीन वेळ ४५ मिनिटांपर्यंत मर्यादित करा.\n
 - Praise efforts in school activities like drawing. Care for a Tulsi plant together daily. | चित्रकला यासारख्या शालेय क्रियाकलापांतील प्रयत्नांचे कौतुक करा. तुळस रोपाची काळजी एकत्र घ्या (रोज).\n\n
 `
-            },
-            medium: {
-                text: `Plan of Action for Student Development (Grades 5-8) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 5-8)\n
+        },
+        medium: {
+            text: `Plan of Action for Student Development (Grades 5-8) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 5-8)\n
 Student: {{studentName}}, Age: {{age}}, Standard: {{standard}}th | विद्यार्थी: {{studentName}}, वय: {{age}}, इयत्ता: {{standard}}वी\n\n
 Objective: Strengthen core skills, foster creativity, and build teamwork. | उद्देश: मुख्य कौशल्ये मजबूत करणे, सर्जनशीलता वाढवणे आणि सांघिक भावना निर्माण करणे.\n\n
 Development Plan: | विकास योजना:\n
@@ -92,9 +92,9 @@ Suggestions for Parents: | पालकांसाठी सूचना:\n
 - Discuss 'Bharat Ek Khoj' episodes (1 monthly). Limit screen time to 1 hour daily. | 'भारत एक खोज' भागांवर चर्चा करा (महिन्यातून १). स्क्रीन वेळ १ तासापर्यंत मर्यादित करा.\n
 - Praise efforts in science club or plays. Care for a neem sapling together daily. | विज्ञान क्लब किंवा नाटकांतील प्रयत्नांचे कौतुक करा. नीम रोपाची काळजी एकत्र घ्या (रोज).\n\n
 `
-            },
-            high: {
-                text: `Plan of Action for Student Development (Grades 5-8) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 5-8)\n
+        },
+        high: {
+            text: `Plan of Action for Student Development (Grades 5-8) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 5-8)\n
 Student: {{studentName}}, Age: {{age}}, Standard: {{standard}}th | विद्यार्थी: {{studentName}}, वय: {{age}}, इयत्ता: {{standard}}वी\n\n
 Objective: Enhance advanced skills, leadership, and curiosity. | उद्देश: प्रगत कौशल्ये, नेतृत्व आणि जिज्ञासा वाढवणे.\n\n
 Development Plan: | विकास योजना:\n
@@ -137,11 +137,11 @@ Suggestions for Parents: | पालकांसाठी सूचना:\n
 - Discuss 'Khan Academy' videos (2 weekly). Limit screen time to 1 hour daily. | 'खान अकादमी' व्हिडिओवर चर्चा करा (आठवड्यातून २). स्क्रीन वेळ १ तासापर्यंत मर्यादित करा.\n
 - Praise leadership in robotics or plays. Care for a fruit tree together daily. | रोबोटिक्स किंवा नाटकांतील नेतृत्वाचे कौतुक करा. फळांचे झाड एकत्र काळजी घ्या (रोज).\n\n
 `
-            }
-        },
-        '9-10': {
-            low: {
-                text: `Plan of Action for Student Development (Grades 9-10) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 9-10)\n
+        }
+    },
+    '9-10': {
+        low: {
+            text: `Plan of Action for Student Development (Grades 9-10) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 9-10)\n
 Student: {{studentName}}, Age: {{age}}, Standard: {{standard}}th | विद्यार्थी: {{studentName}}, वय: {{age}}, इयत्ता: {{standard}}वी\n\n
 Objective: Build study habits, confidence, and career awareness. | उद्देश: अभ्यासाच्या सवयी, आत्मविश्वास आणि करिअर जागरूकता वाढवणे.\n\n
 Development Plan: | विकास योजना:\n
@@ -184,9 +184,9 @@ Suggestions for Parents: | पालकांसाठी सूचना:\n
 - Discuss 'Unacademy' videos (1 weekly). Limit screen time to 1 hour daily. | 'Unacademy' व्हिडिओवर चर्चा करा (आठवड्यातून १). स्क्रीन वेळ १ तासापर्यंत मर्यादित करा.\n
 - Praise efforts in study groups or singing. Care for a neem sapling together daily. | अभ्यास गट किंवा गायनातील प्रयत्नांचे कौतुक करा. नीम रोपाची काळजी एकत्र घ्या (रोज).\n\n
 `
-            },
-            medium: {
-                text: `Plan of Action for Student Development (Grades 9-10) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 9-10)\n
+        },
+        medium: {
+            text: `Plan of Action for Student Development (Grades 9-10) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 9-10)\n
 Student: {{studentName}}, Age: {{age}}, Standard: {{standard}}th | विद्यार्थी: {{studentName}}, वय: {{age}}, इयत्ता: {{standard}}वी\n\n
 Objective: Prepare for board exams, explore careers, and build resilience. | उद्देश: बोर्ड परीक्षेची तयारी, करिअरचा शोध आणि लवचिकता वाढवणे.\n\n
 Development Plan: | विकास योजना:\n
@@ -229,9 +229,9 @@ Suggestions for Parents: | पालकांसाठी सूचना:\n
 - Discuss 'ISRO Lectures' (1 video monthly). Limit screen time to 1 hour daily. | 'ISRO व्याख्याने' चर्चा करा (महिन्यातून १ व्हिडिओ). स्क्रीन वेळ १ तासापर्यंत मर्यादित करा.\n
 - Support debate practice on Make in India. Help plant a neem sapling daily. | मेक इन इंडियावर वादविवाद सरावाला पाठिंबा द्या. नीम रोपाची काळजी घ्या (रोज).\n\n
 `
-            },
-            high: {
-                text: `Plan of Action for Student Development (Grades 9-10) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 9-10)\n
+        },
+        high: {
+            text: `Plan of Action for Student Development (Grades 9-10) | विद्यार्थ्यांच्या विकासासाठी कृती योजना (इयत्ता 9-10)\n
 Student: {{studentName}}, Age: {{age}}, Standard: {{standard}}th | विद्यार्थी: {{studentName}}, वय: {{age}}, इयत्ता: {{standard}}वी\n\n
 Objective: Excel in board exams, plan careers, and lead confidently. | उद्देश: बोर्ड परीक्षेत उत्कृष्टता, करिअर नियोजन आणि आत्मविश्वासाने नेतृत्व.\n\n
 Development Plan: | विकास योजना:\n
@@ -274,106 +274,109 @@ Suggestions for Parents: | पालकांसाठी सूचना:\n
 - Discuss 'Khan Academy' videos (2 weekly). Limit screen time to 1 hour daily. | 'खान अकादमी' व्हिडिओवर चर्चा करा (आठवड्यातून २). स्क्रीन वेळ १ तासापर्यंत मर्यादित करा.\n
 - Support leadership in debates or plays. Help plant a mango sapling daily. | वादविवाद किंवा नाटकांतील नेतृत्वाला पाठिंबा द्या. आंब्याचे रोप एकत्र काळजी घ्या (रोज).\n\n
 `
-            }
         }
-    };
-    function generateDevelopmentPlan() {
-        // Retrieve inputs
-        const studentNameInput = document.getElementById('plan-student-name');
-        const ageInput = document.getElementById('plan-age');
-        const standardInput = document.getElementById('plan-standard');
-        const scoreInput = document.getElementById('plan-score');
-    
-        // Check if inputs exist
-        if (!studentNameInput || !ageInput || !standardInput || !scoreInput) {
-            console.error('One or more input elements not found:', {
-                studentNameInput, ageInput, standardInput, scoreInput
-            });
-            showAlert('error', 'Form elements are missing. Please check the page.');
-            return;
-        }
-    
-        const studentName = studentNameInput.value.trim();
-        const age = parseInt(ageInput.value, 10);
-        const standard = parseInt(standardInput.value, 10);
-        const score = parseFloat(scoreInput.value);
-    
-        console.log('Inputs:', { studentName, age, standard, score });
-    
-        // Validate inputs
-        if (!studentName || isNaN(age) || isNaN(standard) || isNaN(score)) {
-            console.log('Validation failed: Incomplete or invalid inputs');
-            showAlert('error', 'Please fill in all fields with valid values.');
-            return;
-        }
-    
-        if (age < 10 || age > 18) {
-            console.log('Validation failed: Invalid age');
-            showAlert('error', 'Age must be between 10 and 18.');
-            return;
-        }
-    
-        if (score < 0 || score > 100) {
-            console.log('Validation failed: Invalid score');
-            showAlert('error', 'Score must be between 0 and 100.');
-            return;
-        }
-    
-        if (!standardInput.value) {
-            console.log('Validation failed: No grade selected');
-            showAlert('error', 'Please select a valid grade.');
-            return;
-        }
-    
-        // Get branding (with fallback)
-        let branding;
-        try {
-            branding = window.getClientBranding() || {
-                name: 'Psychometrica Pro Plus',
-                address: 'N/A',
-                phone: 'N/A'
-            };
-            console.log('Branding:', branding);
-        } catch (e) {
-            console.error('Error getting branding:', e);
-            branding = { name: 'Psychometrica Pro Plus', address: 'N/A', phone: 'N/A' };
-        }
-    
-        // Select template
-        const gradeGroup = standard <= 8 ? '5-8' : '9-10';
-        const scoreRange = score > 80 ? 'high' : score > 60 ? 'medium' : 'low';
-        const planTemplate = developmentPlans[gradeGroup]?.[scoreRange]?.text;
-    
-        if (!planTemplate) {
-            console.error('Plan template not found for:', { gradeGroup, scoreRange });
-            showAlert('error', 'Unable to generate plan. Template not found.');
-            return;
-        }
-    
-        // Generate personalized plan
-        const personalizedPlan = planTemplate
-            .replace('{{studentName}}', studentName)
-            .replace('{{age}}', age)
-            .replace('{{standard}}', standard)
-            .replace(/{{branding\.name}}/g, branding.name)
-            .replace(/{{branding\.address}}/g, branding.address)
-            .replace(/{{branding\.phone}}/g, branding.phone);
-    
-        // Display plan
-        const planContent = document.getElementById('plan-content');
-        const planText = document.getElementById('plan-text');
-    
-        if (!planContent || !planText) {
-            console.error('Plan display elements not found:', { planContent, planText });
-            showAlert('error', 'Unable to display the plan. Page elements are missing.');
-            return;
-        }
-    
-        planText.textContent = personalizedPlan;
-        planContent.classList.remove('hidden');
-        console.log('Plan displayed successfully');
-        showAlert('success', 'Development plan generated successfully.');
     }
+};
+function generateDevelopmentPlan() {
+    // Retrieve inputs
+    const studentNameInput = document.getElementById('plan-student-name');
+    const ageInput = document.getElementById('plan-age');
+    const standardInput = document.getElementById('plan-standard');
+    const scoreInput = document.getElementById('plan-score');
+
+    // Check if inputs exist
+    if (!studentNameInput || !ageInput || !standardInput || !scoreInput) {
+        console.error('One or more input elements not found:', {
+            studentNameInput, ageInput, standardInput, scoreInput
+        });
+        showAlert('error', 'Form elements are missing. Please check the page.');
+        return;
+    }
+
+    const studentName = studentNameInput.value.trim();
+    const age = parseInt(ageInput.value, 10);
+    const standard = parseInt(standardInput.value, 10);
+    const score = parseFloat(scoreInput.value);
+
+    console.log('Inputs:', { studentName, age, standard, score });
+
+    // Validate inputs
+    if (!studentName || isNaN(age) || isNaN(standard) || isNaN(score)) {
+        console.log('Validation failed: Incomplete or invalid inputs');
+        showAlert('error', 'Please fill in all fields with valid values.');
+        return;
+    }
+
+    if (age < 10 || age > 18) {
+        console.log('Validation failed: Invalid age');
+        showAlert('error', 'Age must be between 10 and 18.');
+        return;
+    }
+
+    if (score < 0 || score > 100) {
+        console.log('Validation failed: Invalid score');
+        showAlert('error', 'Score must be between 0 and 100.');
+        return;
+    }
+
+     if (!standardInput.value) { // Check if a standard is actually selected
+         console.log('Validation failed: No grade selected');
+         showAlert('error', 'Please select a valid grade.');
+         return;
+     }
+
+    // Get branding (with fallback)
+    let branding;
+    try {
+        // Assuming getClientBranding is globally available or imported if needed
+        branding = window.getClientBranding() || {
+            name: 'Psychometrica Pro Plus', // Fallback name
+            address: 'N/A',
+            phone: 'N/A'
+        };
+         console.log('Branding:', branding);
+    } catch (e) {
+        console.error('Error getting branding:', e);
+        branding = { name: 'Psychometrica Pro Plus', address: 'N/A', phone: 'N/A' };
+    }
+
+
+    // Select template
+    const gradeGroup = standard <= 8 ? '5-8' : '9-10';
+    const scoreRange = score > 80 ? 'high' : score > 60 ? 'medium' : 'low';
+    const planTemplate = developmentPlans[gradeGroup]?.[scoreRange]?.text;
+
+    if (!planTemplate) {
+        console.error('Plan template not found for:', { gradeGroup, scoreRange });
+        showAlert('error', 'Unable to generate plan. Template not found.');
+        return;
+    }
+
+    // Generate personalized plan
+    const personalizedPlan = planTemplate
+        .replace(/{{studentName}}/g, studentName) // Use regex for global replace
+        .replace(/{{age}}/g, age)
+        .replace(/{{standard}}/g, standard)
+        .replace(/{{branding\.name}}/g, branding.name)
+        .replace(/{{branding\.address}}/g, branding.address)
+        .replace(/{{branding\.phone}}/g, branding.phone);
+
+    // Display plan
+    const planContentDiv = document.getElementById('plan-content'); // The container div
+    const planTextElement = document.getElementById('plan-text'); // The div where text goes
+
+    if (!planContentDiv || !planTextElement) {
+         console.error('Plan display elements not found:', { planContentDiv, planTextElement });
+         showAlert('error', 'Unable to display the plan. Page elements are missing.');
+        return;
+    }
+
+    planTextElement.textContent = personalizedPlan; // Use textContent for plain text
+    planContentDiv.classList.remove('hidden'); // Make the container visible
+    console.log('Plan displayed successfully');
+    showAlert('success', 'Development plan generated successfully.');
+}
+
 function copyPlan() {
     const planText = document.getElementById('plan-text')?.textContent;
     if (planText) {
@@ -395,4 +398,4 @@ window.copyPlan = copyPlan;
 // window.developmentPlans = developmentPlans;
 console.log("plan.js: Functions assigned.");
 
-}
+// THERE SHOULD BE NO EXTRA BRACE AFTER THIS LINE
