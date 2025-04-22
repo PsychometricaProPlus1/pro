@@ -404,7 +404,5 @@ function copyPlan() {
 console.log(">>> plan.js: Assigning functions to window..."); // <<< ADDED DEBUG LOG
 
 // Expose functions to window using the names script.js expects
-window.generateDevelopmentPlanInternal = generateDevelopmentPlanInternal;
-window.copyPlanInternal = copyPlanInternal;
 
 // Ensure there are NO extra characters (like a closing brace '}') after this line.
