@@ -231,7 +231,21 @@ function showWelcomeScreen() {
             }, 400);
         }, 3000);
     }
+// ADD this new function right after showWelcomeScreen:
+function proceedToDashboard() {
+    console.log('Proceed button clicked.');
+    const welcomeSection = document.getElementById("welcome-section");
+    if (welcomeSection) {
+        welcomeSection.classList.add('hidden'); // Hide the welcome section
+    }
+    postLoginNav(); // Call the original navigation function
+}
 
+// The postLoginNav function (around line 289) remains unchanged
+function postLoginNav() {
+    const role = sessionStorage.getItem("userRole");
+    // ... rest of postLoginNav remains the same ...
+}
     function handlePostLoginNavigation(role) {
         console.log(`handlePostLoginNavigation: Function called with role: "${role}"`);
         const loginSection = document.getElementById('login-section');
