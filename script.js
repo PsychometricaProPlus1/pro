@@ -182,16 +182,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function showWelcomeScreen() {
-        console.log('showWelcomeScreen: Function called.');
-        const branding = getClientBranding();
-        const userRole = sessionStorage.getItem('userRole');
-        // Skip welcome if no branding, proceed directly to navigation
-        if (!branding || !branding.name) {
-            console.warn('showWelcomeScreen: Skipping welcome screen: No branding info.');
-            handlePostLoginNavigation(userRole);
-            return;
-        }
+// REPLACE the existing function (around line 258) with this one:
+function showWelcomeScreen() {
+    const branding = getClientBranding();
+    const welcomeSection = document.getElementById("welcome-section");
+
+    if (!branding || !welcomeSection) {
+        console.warn("Skipping welcome screen (no branding or section missing).");
+        postLoginNav(); // Navigate directly if welcome screen can't show
+        return;
+    }
+
+    const brandName = branding.name || 'Psychometrica Pro Plus';
+    const brandAddress = branding.address || 'Address N/A';
+    const brandPhone = branding.phone || 'Contact N/A';
+
+    // Add the button to the welcome message HTML
+    welcomeSection.innerHTML = `
+        <h2>Welcome to <span class="math-inline">\{brandName\}</h2\>
         const container = document.querySelector('.container');
         if (!container) {
             console.error("showWelcomeScreen: Container not found.");
